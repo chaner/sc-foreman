@@ -5,9 +5,11 @@
 bundle install
 ```
 
-Create a file named `.env.local` with:
+Create a file named `.env` with:
 ```
 DEV_ROOT_PATH=~/dev/code
+RAILS_ENV=development
+RACK_ENV=development
 ```
 where the path points to where all your sc project folders live.
 

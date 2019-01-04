@@ -18,3 +18,8 @@ where the path points to where all your sc project folders live.
 ```
 foreman start -f Procfile.dev
 ```
+
+To exclude a process without modifying the Procfile:
+```
+foreman start -f Procfile --formation all=1,bossanova=0
+```

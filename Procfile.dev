@@ -11,6 +11,7 @@ hermes:       subcontract --chdir $DEV_ROOT_PATH/hermes --rbenv . -- rails s -p 
 # Worker Processes
 bossanova_worker:                      subcontract --chdir $DEV_ROOT_PATH/bossanova    --rbenv . -- bundle exec rake bossanova_worker
 mojo_worker:                           subcontract --chdir $DEV_ROOT_PATH/mojo         --rbenv . -- bundle exec rake mojo_worker
+advocato_worker:                       subcontract --chdir $DEV_ROOT_PATH/advocato         --rbenv . -- bundle exec rake advocato_worker
 
 # Apollo
 asset_processor:                       subcontract --chdir $DEV_ROOT_PATH/apollo --rbenv . -- bundle exec rake asset_processor
@@ -22,7 +23,6 @@ content_user_digest_in_case_you_missed_it_worker: subcontract --chdir $DEV_ROOT_
 content_author_update_listener:        subcontract --chdir $DEV_ROOT_PATH/pony_express --rbenv . -- bundle exec rake content_author_update_listener
 content_channel_event_listener:        subcontract --chdir $DEV_ROOT_PATH/pony_express --rbenv . -- bundle exec rake content_channel_event_listener
 feed_cache_event_listener:             subcontract --chdir $DEV_ROOT_PATH/pony_express --rbenv . -- bundle exec rake feed_cache_event_listener
-asset_event_listener:                  subcontract --chdir $DEV_ROOT_PATH/pony_express --rbenv . -- bundle exec rake asset_event_listener
 
 harvest_twitter_admin_worker:                subcontract --chdir $DEV_ROOT_PATH/harvester    --rbenv . -- bundle exec rake harvest[twitter,twitter_admin_harvester]
 harvest_rss_feed_admin_worker:               subcontract --chdir $DEV_ROOT_PATH/harvester    --rbenv . -- bundle exec rake harvest[rss_feed,rss_admin_harvester]

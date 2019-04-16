@@ -1,12 +1,14 @@
 # Web Processes
 advocato:     subcontract --chdir $DEV_ROOT_PATH/advocato --rbenv . -- rails s -p 3000 -b lvh.me
 bossanova:    subcontract --chdir $DEV_ROOT_PATH/bossanova --rbenv . -- bundle exec rails s -p 4000 -b lvh.me
+dojo:         subcontract --chdir $DEV_ROOT_PATH/dojo --rbenv . -- rails s -p 7500 -b lvh.me
 mojo:         subcontract --chdir $DEV_ROOT_PATH/mojo --rbenv . -- rails s -p 5000 -b lvh.me
-orare:        subcontract --chdir $DEV_ROOT_PATH/orare --rbenv . -- rails s -p 6000 -b lvh.me
+orare:        subcontract --chdir $DEV_ROOT_PATH/orare --rbenv . -- rails s -p 8100 -b lvh.me
 governor:     subcontract --chdir $DEV_ROOT_PATH/governor --rbenv . -- rails s -p 7000 -b lvh.me
 pony:         subcontract --chdir $DEV_ROOT_PATH/pony_express --rbenv . -- rails s -p 8000 -b lvh.me
 apollo:       subcontract --chdir $DEV_ROOT_PATH/apollo --rbenv . -- rails s -p 8800 -b lvh.me
 hermes:       subcontract --chdir $DEV_ROOT_PATH/hermes --rbenv . -- rails s -p 8900 -b lvh.me
+pigeon:       subcontract --chdir $DEV_ROOT_PATH/pigeon lein ring server-headless 9900
 
 # Worker Processes
 bossanova_worker:                      subcontract --chdir $DEV_ROOT_PATH/bossanova    --rbenv . -- bundle exec rake bossanova_worker
@@ -16,15 +18,36 @@ advocato_worker:                       subcontract --chdir $DEV_ROOT_PATH/advoca
 # Apollo
 asset_processor:                       subcontract --chdir $DEV_ROOT_PATH/apollo --rbenv . -- bundle exec rake asset_processor
 
+# Governor
+gov_asset_event_listener:             subcontract --chdir $DEV_ROOT_PATH/governor --rbenv . -- bundle exec rake worker:asset_event_listener
+
 # Pony
+asset_event_listener:                 subcontract --chdir $DEV_ROOT_PATH/pony_express --rbenv . -- bundle exec rake asset_event_listener
 external_content_upsert_worker:        subcontract --chdir $DEV_ROOT_PATH/pony_express --rbenv . -- bundle exec rake external_content_upsert_worker
-enqueue_program_content_digest:        subcontract --chdir $DEV_ROOT_PATH/pony_express --rbenv . -- bundle exec rake enqueue_program_content_digest
-content_user_digest_in_case_you_missed_it_worker: subcontract --chdir $DEV_ROOT_PATH/pony_express --rbenv . -- bundle exec rake content_user_digest_in_case_you_missed_it_worker
+# enqueue_program_content_digest:        subcontract --chdir $DEV_ROOT_PATH/pony_express --rbenv . -- bundle exec rake enqueue_program_content_digest
+# content_user_digest_in_case_you_missed_it_worker: subcontract --chdir $DEV_ROOT_PATH/pony_express --rbenv . -- bundle exec rake content_user_digest_in_case_you_missed_it_worker
 content_author_update_listener:        subcontract --chdir $DEV_ROOT_PATH/pony_express --rbenv . -- bundle exec rake content_author_update_listener
 content_channel_event_listener:        subcontract --chdir $DEV_ROOT_PATH/pony_express --rbenv . -- bundle exec rake content_channel_event_listener
 feed_cache_event_listener:             subcontract --chdir $DEV_ROOT_PATH/pony_express --rbenv . -- bundle exec rake feed_cache_event_listener
 
+# Harvester
 harvest_twitter_admin_worker:                subcontract --chdir $DEV_ROOT_PATH/harvester    --rbenv . -- bundle exec rake harvest[twitter,twitter_admin_harvester]
-harvest_rss_feed_admin_worker:               subcontract --chdir $DEV_ROOT_PATH/harvester    --rbenv . -- bundle exec rake harvest[rss_feed,rss_admin_harvester]
+harvest_rss_feed_admin_worker:               subcontract --chdir $DEV_ROOT_PATH/harvester    --rbenv . -- bundle exec rake harvest[rss_feed,rss_feed_admin_harvester]
 #harvest_pinterest_worker:              subcontract --chdir $DEV_ROOT_PATH/harvester    --rbenv . -- bundle exec rake harvest[pinterest]
 #harvest_facebook_page_worker:          subcontract --chdir $DEV_ROOT_PATH/harvester    --rbenv . -- bundle exec rake harvest[facebook_page]
+
+# Hermes
+
+intake_worker:                      subcontract --chdir $DEV_ROOT_PATH/hermes    --rbenv . -- bundle exec rake intake_all_worker
+event_worker:                       subcontract --chdir $DEV_ROOT_PATH/hermes    --rbenv . -- bundle exec rake event_worker
+execution_signal_worker:            subcontract --chdir $DEV_ROOT_PATH/hermes    --rbenv . -- bundle exec rake execution_signal_worker
+schedule_registration_worker:       subcontract --chdir $DEV_ROOT_PATH/hermes    --rbenv . -- bundle exec rake schedule_registration_worker
+# autobatcher_worker:                 subcontract --chdir $DEV_ROOT_PATH/hermes    --rbenv . -- bundle exec rake autobatcher_worker
+# cloud_watch_slurp_worker:           subcontract --chdir $DEV_ROOT_PATH/hermes    --rbenv . -- bundle exec rake cloud_watch_slurp_worker
+# cloudwatch_log_event_worker:         subcontract --chdir $DEV_ROOT_PATH/hermes    --rbenv . -- bundle exec rake cloudwatch_log_event_worker
+# content_viewed_worker:              subcontract --chdir $DEV_ROOT_PATH/hermes    --rbenv . -- bundle exec rake content_viewed_slurp_worker
+execute_run_worker:                 subcontract --chdir $DEV_ROOT_PATH/hermes    --rbenv . -- bundle exec rake execute_run_worker
+execute_send_worker:                subcontract --chdir $DEV_ROOT_PATH/hermes    --rbenv . -- bundle exec rake execute_send_worker
+send_email_worker:                  subcontract --chdir $DEV_ROOT_PATH/hermes    --rbenv . -- bundle exec rake send_email_worker
+execute_send_immediate_worker:      subcontract --chdir $DEV_ROOT_PATH/hermes    --rbenv . -- bundle exec rake execute_send_worker[immediate]
+send_email_immediate_worker:        subcontract --chdir $DEV_ROOT_PATH/hermes    --rbenv . -- bundle exec rake send_email_worker[immediate]

@@ -21,5 +21,5 @@ foreman start -f Procfile.dev
 
 To exclude a process without modifying the Procfile:
 ```
-foreman start -f Procfile.dev --formation all=1,bossanova=0
+foreman start -f Procfile.dev --formation all=1,bossanova=0,dojo=0
 ```

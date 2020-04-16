@@ -11,11 +11,22 @@ hermes:       subcontract --chdir $DEV_ROOT_PATH/hermes --rbenv . -- rails s -p 
 pigeon:       subcontract --chdir $DEV_ROOT_PATH/pigeon lein ring server-headless 9900
 iam:          subcontract --chdir $DEV_ROOT_PATH/iam --rbenv . -- rails s -p 3333 -b lvh.me
 marco:        subcontract --chdir $DEV_ROOT_PATH/marco --rbenv . -- rails s -p 5510 -b lvh.me
+hedwig:       subcontract --chdir $DEV_ROOT_PATH/hedwig --rbenv . -- rails s -p 5500 -b lvh.me
+discourse:    subcontract --chdir $DEV_ROOT_PATH/discourse --rbenv . -- rails s -p 9000 -b lvh.me
+patronus:     subcontract --chdir $DEV_ROOT_PATH/patronus --rbenv . -- shotgun
 
 # Worker Processes
 bossanova_worker:                      subcontract --chdir $DEV_ROOT_PATH/bossanova    --rbenv . -- bundle exec rake bossanova_worker
 mojo_worker:                           subcontract --chdir $DEV_ROOT_PATH/mojo         --rbenv . -- bundle exec rake mojo_worker
 advocato_worker:                       subcontract --chdir $DEV_ROOT_PATH/advocato         --rbenv . -- bundle exec rake advocato_worker
+hedwig_worker:                         subcontract --chdir $DEV_ROOT_PATH/hedwig         --rbenv . -- bundle exec rake hedwig_worker
+
+# mojo
+# mojo_user_activity_worker:            subcontract --chdir $DEV_ROOT_PATH/mojo     --rbenv . -- bundle exec rake mojo_user_activity_worker
+
+# hedwig
+hedwig_user_notification_worker:        subcontract --chdir $DEV_ROOT_PATH/hedwig     --rbenv . -- bundle exec rake hedwig_user_notification_worker
+hedwig_user_inbox_worker:               subcontract --chdir $DEV_ROOT_PATH/hedwig     --rbenv . -- bundle exec rake hedwig_user_inbox_worker
 
 # Apollo
 asset_processor:                       subcontract --chdir $DEV_ROOT_PATH/apollo --rbenv . -- bundle exec rake asset_processor
@@ -26,6 +37,12 @@ asset_processor:                       subcontract --chdir $DEV_ROOT_PATH/apollo
 
 # Governor
 gov_asset_event_listener:             subcontract --chdir $DEV_ROOT_PATH/governor --rbenv . -- bundle exec rake worker:asset_event_listener
+governor_general:                 subcontract --chdir $DEV_ROOT_PATH/governor --rbenv . -- bundle exec rake worker:governor_general
+groups_rebuild_worker:            subcontract --chdir $DEV_ROOT_PATH/governor --rbenv . -- bundle exec rake groups:facts:rebuild:worker
+groups_reindex_worker:            subcontract --chdir $DEV_ROOT_PATH/governor --rbenv . -- bundle exec rake groups:reindex:worker
+groups_scrub_worker:              subcontract --chdir $DEV_ROOT_PATH/governor --rbenv . -- bundle exec rake groups:scrub:worker
+groups_pipeline_events_worker:    subcontract --chdir $DEV_ROOT_PATH/governor --rbenv . -- bundle exec rake groups:pipeline:events:worker
+groups_generated_groups_worker:    subcontract --chdir $DEV_ROOT_PATH/governor --rbenv . -- bundle exec rake groups:generated_groups:worker
 
 # Pony
 asset_event_listener:                 subcontract --chdir $DEV_ROOT_PATH/pony --rbenv . -- bundle exec rake asset_event_listener
